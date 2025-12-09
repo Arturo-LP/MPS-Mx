@@ -1,0 +1,70 @@
+%---------------------------------------------------------------
+% Preamble
+%---------------------------------------------------------------
+\documentclass[a4paper,12pt]{article} 			% Document class
+\input{../Settings/toggles}		   		  		% Toggles
+\input{../Settings/packages}		   		  	% Packages
+\input{../Settings/pagesetup}   				% Page settings
+\input{../Settings/macros}		        		% Customized commands
+\input{../Settings/variables}			     	% Variable definitions
+\input{../Equations/equations}			     	% Equations
+%---------------------------------------------------------------
+
+\begin{document}
+%---------------------------------------------------------------
+% Title
+%---------------------------------------------------------------
+\title{ \vspace{-4ex}\input{../Settings/title}  
+	\iftoggle{fulldraft}{ \iftoggle{blind}{}{ \hspace{-1em}\thanks{ \protect\input{thanks} } } }{ \vspace{-4ex} }
+}
+\iftoggle{fulldraft}{
+	\author{
+		\iftoggle{blind}{}{
+			\input{../Settings/author1}\thanks{ \protect\input{../Settings/affil1} }\\\input{../Settings/instit1} \and 
+			\input{../Settings/author2}\thanks{ \protect\input{../Settings/affil2} }\\\input{../Settings/instit2}
+		}
+	}
+	\date{First draft: January 1, 2000 \\
+		  This draft: \today}
+}{ \author{} \date{} }
+\maketitle	\vspace{-4ex}
+
+%---------------------------------------------------------------
+% Contents
+%---------------------------------------------------------------
+\iftoggle{fulldraft}{ \input{abstract} }{}		% Abstract only in full draft
+
+\input{sections}
+
+\iftoggle{fulldraft}{							% Next only in full draft
+	\begin{singlespace}
+		\printbibliography[title={References},heading=bibintoc]
+	\end{singlespace}
+	
+	\iftoggle{withappdx}{\input{appdxfiller}}{}	% See comment for withappdx in toggles.tex
+	
+	\iftoggle{floatstxt}{}{
+		\newpage
+		\theendnotes
+		
+		\input{floats}
+		\input{appdxfloats}
+	}
+}{}												% Closes \iftoggle{fulldraft}
+
+\iftoggle{toclinks}{\maketoc}{}		% Table of contents for editing
+
+\end{document}
+
+%---------------------------------------------------------------
+% CRediT (Contributor Roles Taxonomy) author statement
+%---------------------------------------------------------------
+% Author 1: Conceptualization, methodology, data curation, formal analysis. 
+% Author 2: Research, coding, validation, visualization, writing, supervision.
+
+%---------------------------------------------------------------
+% Notes
+%---------------------------------------------------------------
+% To update or remove previously citated references in TeXstudio:
+% - Tools -> Commands -> Biber
+% - Build & View

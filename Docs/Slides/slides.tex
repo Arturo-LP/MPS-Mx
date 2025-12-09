@@ -1,0 +1,237 @@
+%----------------------------------------------------------------
+% Preamble
+%----------------------------------------------------------------
+\documentclass[12pt,aspectratio=169,xcolor=dvipsnames,hyperref={colorlinks=true,linkcolor=blue,citecolor=black}]{beamer}
+\input{../Settings/toggles}		   		  					% Toggles
+\input{../Settings/packsbeamer}   		  					% Packages
+\input{../Settings/themecolors}   		  					% Customized theme colors
+\input{../Settings/macros}		        					% Customized commands
+\input{../Settings/variables}			     				% Variable definitions
+\input{../Equations/equations}			     				% Equations
+\listfiles													% .log file shows version of packages loaded
+
+%---------------------------------------------------------------
+% Theme
+%---------------------------------------------------------------
+\usetheme{CambridgeUS}			   							% List: default, Madrid, CambridgeUS, Boadilla, Copenhagen
+\useinnertheme{circles}	 									% List: circles, rectangles, rounded
+\useoutertheme{infolines} 									% List: miniframes, infolines, smoothbars, smoothtree, split
+\usefonttheme{professionalfonts}							% List: serif, professionalfonts, structurebold, structuresmallcapsserif
+\usecolortheme{dolphin}										% List: dolphin, lily
+\usecolortheme[named=indigo]{structure}						% Choose color from themecolors.tex
+\setbeamercolor{alerted text}{fg=steelblue}					% Choose color from themecolors.tex
+\setbeamerfont{alerted text}{series=\bfseries}
+%\setbeamertemplate{page number in head/foot}{}				% Remove frame numbers
+\setbeamertemplate{navigation symbols}{}					% Remove navigation symbols
+\setbeamertemplate{note page}[plain]						% Remove details in note pages
+
+%---------------------------------------------------------------
+% Lists
+%---------------------------------------------------------------
+\setbeamertemplate{enumerate item}[default]					% List: default, ball, circle, square
+%\setbeamertemplate{itemize items}{\(\bullet\)}				% List: default, ball, circle, square
+\setbeamertemplate{itemize subitem}{---}
+\setbeamertemplate{itemize subsubitem}{\(\leftharpoonup\)} 	%{\(\rightharpoondown\)} %{\(\vdash\)}
+\newcounter{currentenumi}									% Define a counter to continue numbering
+
+%---------------------------------------------------------------
+% Notes
+%---------------------------------------------------------------
+\setbeameroption{hide notes}								% Only slides
+%\setbeameroption{show only notes}							% Only notes (e.g. for editing)
+%\setbeameroption{show notes on second screen=right} 									% Slides+Notes: Option 1
+%\setbeameroption{show notes} \pgfpagesuselayout{2 on 1}[a4paper,border shrink=17mm]	% Slides+Notes: Option 2
+
+%---------------------------------------------------------------
+% Title Info
+%---------------------------------------------------------------
+\title[]{\input{../Settings/title}}
+\subtitle[]{Subtitle of the Paper}
+\author[]{\small{\begin{tabular}{c c}
+			\input{../Settings/author1} & \input{../Settings/author2} \\
+			\input{../Settings/instit1} & \input{../Settings/instit2} \\
+			\end{tabular}}}
+\institute[]{}
+%\author[]{ \input{../Settings/author1} \hspace{-1.4ex}\inst{1} \and \input{../Settings/author2} \hspace{-1.4ex}\inst{2} }
+%\institute[]{ \inst{1} \input{../Settings/instit1} \and \inst{2} \input{../Settings/instit2} }
+\date[]{Month Day, Year}
+
+
+\begin{document}
+
+%----------------------------------------------------------------
+% Title Slide
+%----------------------------------------------------------------
+{ \setbeamercolor{page number in head/foot}{fg=date in head/foot.bg} % Hide frame number from title page
+\begin{frame}[noframenumbering]
+	\maketitle \vspace{-0.5cm}
+	\centering {\footnotesize The views expressed do not necessarily reflect the position of XYZ.}
+\end{frame} 
+\note[itemize]{
+	\item Hello everyone.
+	\item This paper:
+	\begin{itemize}
+		\item Studies ABC, and
+		\item Contributes to XYZ.
+	\end{itemize}
+	}
+}
+
+
+\begin{frame}
+	\frametitle{Roadmap}
+	\tableofcontents
+\end{frame}
+
+
+%----------------------------------------------------------------
+% Section
+%----------------------------------------------------------------
+\section[]{Introduction}
+
+\begin{frame}[label=layered]
+	\frametitle{Text Formatting}
+	\begin{itemize}
+		\item Income \quad \only<\iftoggle{stops}{2}{1}>{\cmark}
+		\begin{itemize}
+			\item \alert{Net interest margin} (NIM)
+			\begin{itemize}
+				\item<\iftoggle{stops}{2-}{1}> Interest \textit{income} (II) \(\rightarrow\) \textcolor{red}{Numerator}
+			\end{itemize}
+			\item \textbf{Non}-interest income (NNI)
+			\setbeamercovered{transparent}
+			\begin{itemize}
+				\uncover<\iftoggle{stops}{2-}{1}>{ \item \textrm{Net fees} }
+			\end{itemize}
+			\setbeamercovered{invisible}
+		\end{itemize}
+		\item Operating \texttt{costs} (OC) \quad \only<\iftoggle{stops}{2}{1}>{\xmark}
+	\end{itemize}
+\note<1->[item]{Note 1.}
+\note<\iftoggle{stops}{2-}{1}>[item]{Note 2.}
+\end{frame}
+
+
+\subsection[]{Examples}
+
+\begin{frame}[label=examples]
+	\setbeamertemplate{enumerate item}{\arabic{enumi}.-}	% List: \arabic, \alph, \Alph, \roman, \Roman
+	\frametitle{Examples}
+	\begin{enumerate}[<\iftoggle{stops}{+-}{1}>]
+		\item Equation from paper (but unnumbered and highlighted): \label{item:eq}
+		\settoggle{coloreq}{true}							% Set toggle to highlight part of equation
+		\input{../Equations/exEqU}
+		\vspace{-1cm}
+		\item<1->[] where \(\error\) (defined in \texttt{variables.tex}) is the error
+		\item[\ding{43}] Reference example: \cite{ChangLi:2017AER} % Set marker
+		\setcounter{currentenumi}{\theenumi}				% Store actual item number
+		\setcounter{enumi}{\thecurrentenumi+1}				% Use stored item number
+		\item Cross-reference examples: to number in paper (\double{../Numbers/exNumMean.txt}) and to item \ref{item:eq} above
+		\item Table example \hyperlink{tableex}{\beamergotobutton{Table}}
+		\item Figure example \hyperlink{figureex}{\beamergotobutton{Figure}}	
+	\end{enumerate}
+\note[item]{Note 1.}
+\note<\iftoggle{stops}{2-}{1}>[item]{Note 2.}
+\note<\iftoggle{stops}{3-}{1}>[item]{Note 3.}
+\note<\iftoggle{stops}{4-}{1}>[item]{Note 4.}
+\note<\iftoggle{stops}{5-}{1}>[item]{Note 5.}
+\end{frame}
+
+
+%----------------------------------------------------------------
+% Section
+%----------------------------------------------------------------
+\section[]{Inserting A PDF}
+
+\begin{frame}<0>											% <0> hides slide in PDF
+	\frametitle{Table from Paper}
+	\begin{center}
+		\includegraphics[trim={3cm 21.15cm 3cm 3cm},clip,height=5cm,width=\textwidth,keepaspectratio]{../Tables/extab.pdf}
+		% trim={<left> <lower> <right> <upper>}
+	\end{center}
+\note<1->[item]{Note.}
+\end{frame}
+
+
+\begin{frame}[label=tableex]
+	\frametitle{Table from Paper \uncover<\iftoggle{stops}{2-}{1}>{(Highlighted)}}
+	\vspace{-0.25cm}
+	\hspace{0.9cm}
+	\begin{tikzpicture}
+	\node (table) at (0,0)
+		{\includegraphics[trim={2.9cm 20.8cm 3cm 3cm},clip,height=5cm,width=\textwidth,keepaspectratio]{../Tables/extab.pdf}};
+		\uncover<\iftoggle{stops}{2-}{1}>{\draw[red,thick] (-1.2,-0.47) rectangle (0.9,0.57);}
+		%\draw[step=1cm,gray,very thin] (-4,-4) grid (6,6);
+	\end{tikzpicture}
+	
+	\begin{textblock*}{3cm}(0.94\textwidth,0.98\textheight)	% Left-right, up-down
+		\hyperlink<\iftoggle{stops}{2-}{1}>{examples}{\beamerreturnbutton{Examples}}
+	\end{textblock*}
+
+\note<1->[item]{Note 1.}
+\note<\iftoggle{stops}{2-}{1}>[item]{Note 2.}
+\end{frame}
+
+
+%----------------------------------------------------------------
+% Section
+%----------------------------------------------------------------
+\section*{Appendix}
+\appendix
+
+{ \setbeamercolor{page number in head/foot}{fg=date in head/foot.bg} % Hide frame number
+\begin{frame}[noframenumbering]
+	\begin{center}
+		\huge \textcolor{yaleblue}{Appendix}
+	\end{center}
+\end{frame}
+}
+
+
+\begin{frame}[label=figureex]
+	\frametitle{Figure from Paper}
+	\begin{center}
+		\includegraphics[trim={0cm 0cm 0cm 1cm},clip,height=0.85\textheight,width=\textwidth,keepaspectratio]{../Figures/Plain/exfigure1}
+		% trim={<left> <lower> <right> <upper>}
+	\end{center}
+	
+	\begin{textblock*}{3cm}(0.94\textwidth,0.6\textheight)	% Left-right, up-down
+		\hyperlink{examples}{\beamerreturnbutton{Examples}}
+	\end{textblock*}
+\end{frame}
+\note[itemize]{
+	\item Note.
+}
+
+
+\begin{frame}
+	\frametitle{Tikz Figure}
+	\begin{columns}[T] 										% Align columns
+		\begin{column}{0.35\textwidth}
+			\begin{itemize}
+				\item Remark 1
+				\item Remark 2
+				\item Remark 3
+			\end{itemize}
+		\end{column}
+	\hfill
+		\begin{column}{0.61\textwidth}
+			\begin{center}
+				\includegraphics[height=\textheight,width=\textwidth,keepaspectratio]{../Figures/Tikz/extikz}
+				% trim={<left> <lower> <right> <upper>}
+			\end{center}
+		\end{column}%
+	\end{columns}
+\end{frame}
+\note[itemize]{
+	\item Note.
+}
+
+
+\begin{frame}<0>[noframenumbering]							% Process bib file without adding a slide
+	\printbibliography										% Option 1
+%	\bibliographystyle{abbrvnat}							% Option 2
+%	\bibliography{../References/library}					% Option 2
+\end{frame}
+
+\end{document}

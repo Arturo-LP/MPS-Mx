@@ -1,0 +1,48 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[labelsep=period,labelfont=bf]{caption}
+\usepackage[margin=1in]{geometry}
+\usepackage[outdir=./]{epstopdf}
+\usepackage{graphicx}
+\usepackage{afterpage}
+\usepackage{subcaption}
+\input{../Settings/toggles}		   		  			% Toggles
+\input{../Settings/macros}			   				% Customized commands
+\input{../Settings/variables}			    		% Variable definitions
+\usepackage[sfdefault,extralight]{FiraSans}			% Use same font as in slides
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+\settoggle{longnotes}{false}						% Short notes if standalone
+%\pagestyle{empty}
+
+\begin{document}
+	\newcommand{\Title}{Title of Figure}
+%	\afterpage{
+		\begin{figure}[tbph]
+			\iftoggle{longnotes}{ \caption{\Title} }{ \caption*{\Title} } \label{fig:exsubfig}
+			\begin{center}							% Center the minipage on the line
+				\begin{minipage}{0.9\linewidth}
+						\begin{subfigure}[t]{\linewidth}
+							\begin{center}			% Center the subfigure inside the minipage
+								\includegraphics[trim={0cm 0cm 0cm 0cm},clip,height=0.2\textheight,width=1\linewidth,keepaspectratio]{../Figures/Plain/exfigure1} \\
+							\end{center}
+							\vspace{-0.5cm}
+							\caption{Subfigure A} \label{subfig:exsubfigureA}
+							\vspace{0.5cm}
+						\end{subfigure}
+						
+						\begin{subfigure}[t]{\linewidth}
+							\begin{center}
+								\includegraphics[trim={0cm 0cm 0cm 0cm},clip,height=0.2\textheight,width=1\linewidth,keepaspectratio]{../Figures/Plain/exfigure2} \\
+							\end{center}
+							\vspace{-0.5cm}
+							\caption{Subfigure B} \label{subfig:exsubfigureB}
+							\vspace{0.5cm}
+						\end{subfigure}
+					\fignotes{ Add standalone description. \iftoggle{longnotes}{Long for text.}{Short for slides.} 
+						You can reference (dynamic) variables like \lastobs. }
+				\end{minipage}
+			\end{center}
+		\end{figure}
+%	}
+\end{document}
+% trim = {<left> <lower> <right> <upper>}

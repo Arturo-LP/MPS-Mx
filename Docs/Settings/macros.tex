@@ -1,0 +1,105 @@
+%% Customized Macros
+% Table of Contents, Tasks, Tables, Subcaptions, Text
+%
+%\gototoc
+%\maketoc
+%\begin{boxeditems} \end{boxeditems}
+%\estauto
+%\specialcell
+%\fignotes
+%\tabnotes
+%\double
+%\textchange
+
+%---------------------------------------------------------------
+% Table of Contents
+%---------------------------------------------------------------
+
+% Link to ToC from section
+\newcommand{\gototoc}{\vspace{-2cm} \null\hfill [\hyperlink{toc}{Go to ToC}] \newline}
+
+% Link back to section from ToC
+\newcommand{\maketoc}{
+	\clearpage
+	\hypertarget{toc}{}
+	\tableofcontents
+	\thispagestyle{empty}
+	\vspace{2.5\bigskipamount}
+}
+
+%---------------------------------------------------------------
+% Tasks
+%---------------------------------------------------------------
+
+% Box with bullets for tasks to do in a section
+\newenvironment{boxeditems}
+	{\begin{tabular}{|p{\linewidth}|}
+	\hline
+	\begin{singlespace}
+	\vspace{-0.4cm}
+	\begin{itemize}
+	}
+	{
+	\vspace{-0.4cm}
+	\end{itemize}
+	\end{singlespace}
+	\\ \hline
+	\end{tabular} \\
+	}
+
+%---------------------------------------------------------------
+% Tables
+%---------------------------------------------------------------
+
+% Estout commands to handle fragments from Stata following Jörg Weber (https://www.jwe.cc/2012/03/stata-latex-tables-estout/)
+\newcommand{\sym}[1]{\rlap{#1}}
+
+\let\estinput=\input	% define new input command to flatten the document
+
+\newcommand{\estauto}[2]{
+	\newcolumntype{C}{>{\centering\arraybackslash}X}
+	\vspace{.75ex}{
+		\begin{tabularx}{0.95\linewidth}{l*{#2}C}
+			\toprule
+			\estinput{#1}
+			\\ \bottomrule
+			\addlinespace[.75ex]
+		\end{tabularx}
+	}
+}
+
+% Allow line breaks with \\ in table columns, e.g. mtitle("\specialcell{Co-Holding\\> \var1}")
+\newcommand{\specialcell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+%---------------------------------------------------------------
+% Subcaptions
+%---------------------------------------------------------------
+
+% Notes after figures following Jörg Weber (https://www.jwe.cc/2012/03/stata-latex-tables-estout/)
+\newcommand{\figtext}[1]{
+	\vspace{-1ex}
+	\captionsetup{justification=justified,font=footnotesize}
+	\caption*{#1}
+%	\captionsetup{justification=raggedright,singlelinecheck=false,font=footnotesize}
+%	\caption*{\hspace{6pt}\hangindent=1.5em #1}
+}
+
+\newcommand{\fignote}[1]{\figtext{\emph{Note:~}~#1}}
+\newcommand{\fignotes}[1]{\figtext{\emph{Notes:~}~#1}}
+
+% Notes after tables
+\newcommand{\tabnotes}[1]{
+	\begin{tablenotes}[para,flushleft]
+		\footnotesize \emph{Notes:~}~#1
+	\end{tablenotes}
+}
+
+%---------------------------------------------------------------
+% Text
+%---------------------------------------------------------------
+
+% Input numbers from file
+\newcommand{\double}[1]{\input{#1}\unskip}
+
+% Highlight changes in revised version with color
+\newcommand{\textchange}[1]{\iftoggle{revised}{\textcolor{blue}{#1}}{#1}}

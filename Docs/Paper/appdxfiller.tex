@@ -1,0 +1,68 @@
+\newpage
+\begin{appendices}
+
+\titleformat{\section}{\Large\bfseries}{}{0pt}{\appendixname\enskip\thesection:\quad}	% Customize section titles
+
+% Restart counters and customize numbering
+\setcounter{page}{1}
+\setcounter{footnote}{0}
+\iftoggle{floatstxt}{}{\setcounter{endnote}{0}}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\counterwithin{equation}{section}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+\begin{center}
+	{\LARGE \input{../Settings/title}}
+\end{center}
+
+
+\section{Section} \label{sec:appdx1}
+\vspace{0.7cm}
+\iftoggle{toclinks}{\gototoc}{} 							% Turn it on/off in packages.tex
+\iftoggle{cboxes}{	   				  						% Turn it on/off in packages.tex
+	\begin{boxeditems}
+		\item To-do list.
+	\end{boxeditems}}{}
+
+Appendix content.\footnote{Footnotes numbering is restarted in the appendix.}
+
+\input{../Equations/exEqN}
+
+Example of citation only made in appendix: \parencite{ChangLi:2017AER}.
+
+
+\section{Section} \label{sec:appdx2}
+\vspace{0.7cm}
+\iftoggle{toclinks}{\gototoc}{} 							% Turn it on/off in packages.tex
+\iftoggle{cboxes}{	   				  						% Turn it on/off in packages.tex
+	\begin{boxeditems}
+		\item To-do list.
+	\end{boxeditems}}{}
+
+Appendix content.
+
+\input{../Equations/exLongN}
+
+\iftoggle{floatstxt}{
+	\input{../Tables/Standalone/extabself}
+	}{
+	\begin{center}
+		[Insert Table \ref{tab:extabself} Here.]
+	\end{center}
+}
+
+\iftoggle{floatstxt}{
+	\input{../Figures/exsubfig}
+	}{
+	\begin{center}
+		[Insert Figure \ref{fig:exsubfig} Here.]
+	\end{center}
+}
+
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}	% Restore section titles defaults
+
+\end{appendices}

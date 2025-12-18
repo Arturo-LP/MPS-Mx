@@ -5,10 +5,10 @@ by Arturo López (alopezperez.2605@gmail.com)
 
 ## System Features
 The results in the paper were generated using the following:
-- Operating system(s): 	\<macOS Version, Windows Version\>.
-- Software: 		\<Matlab Version, Stata Version, R Version, Python Version, MacTeX Version, MiKTeX Version\>.
-- Add-ons (essential): 	\<Financial Toolbox (Matlab); esttab (Stata); tidyverse (R); numpy, pandas (Python)\>.
-- Restricted sources: 	\<Bloomberg\>.
+- Operating system(s): 	Windows 11.
+- Software: Stata 16, R 4.4.2.
+- Add-ons (essential): 	esttab (Stata); tidyverse (R).
+- Restricted sources: 	Bloomberg.
 - Running time: 	Tidy \<XX\> min, Stats \<XX\> min, Analysis \<XX\> min.
 
 
